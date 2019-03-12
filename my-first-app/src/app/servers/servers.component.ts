@@ -6,23 +6,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./servers.component.css']
 })
 export class ServersComponent implements OnInit {
-  serversStatus:string = 'no Servers';
-  num:number = 0;
-  serverName = '';
+  userName: string;
+  usernameCreate: string;
+  valid: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  onCreateServer() {
-    this.num++;
-    this.serversStatus = `added ${this.num} Servers.`
+  onCreateUsername() {
+    this.valid = true;
+    this.usernameCreate = `username ${this.userName} is Created`;
   }
 
-  onEvent(event: Event) {
-    console.log((<HTMLInputElement>event.target).value);
-    this.serverName = (<HTMLInputElement>event.target).value;
+  resetUsername(event: Event) {
+    if ((<HTMLInputElement>event.target).value == '') {
+      this.valid = false;
+      this.usernameCreate = 'No Servers';
+    }
   }
-
+  getColor() {
+    return this.valid ? 'green' : 'red';
+  }
 }

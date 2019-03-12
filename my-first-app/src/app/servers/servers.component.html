@@ -1,6 +1,10 @@
-<button class="btn btn-primary" (click)="onCreateServer()">Add Server</button>
-<p>{{ serversStatus }}</p>
 <div>
-  <input type="text" (input)="onEvent($event)">
-  <p>{{ serverName }}</p>
+  <input type="text" class="form-control" [(ngModel)]="userName" (input)="resetUsername($event)">
 </div>
+<br>
+<button class="btn btn-primary" (click)="onCreateUsername()" [disabled]="!userName">Create Username</button>
+<p [ngStyle]="{backgroundColor: getColor()}"
+    [ngClass]="{bigFontSize: !valid, smallFontSize: valid}">
+  {{usernameCreate}}
+
+</p>
