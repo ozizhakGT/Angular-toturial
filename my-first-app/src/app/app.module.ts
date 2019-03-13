@@ -1,14 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {FormsModule} from "@angular/forms";
 
 import { AppComponent } from './app.component';
-import { ServersComponent } from './servers/servers.component';
-import {FormsModule} from "@angular/forms";
+import { UserDetalisComponent } from './user-detalis/user-detalis.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ServersComponent,
+    UserDetalisComponent,
   ],
   imports: [
     BrowserModule,
