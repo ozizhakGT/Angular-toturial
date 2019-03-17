@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {SeverElement} from "./severElement";
 
 @Component({
@@ -6,9 +6,17 @@ import {SeverElement} from "./severElement";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy{
   serverElements: SeverElement[] = [];
   srvCounter: number = this.serverElements.length;
+
+  ngOnDestroy(): void {
+    console.log('ngOnDestroy Called !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!s')
+  }
+  onDestroyClicked() {
+    this.serverElements.splice(0,1);
+    this.srvCounter = this.srvCounter === 0 ? 0 : --this.srvCounter;
+  }
 
   onServerAdded(serverData: {serverName: string, serverContent: string}) {
     this.serverElements.push({
