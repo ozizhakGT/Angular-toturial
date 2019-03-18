@@ -1,0 +1,39 @@
+.btns__wrapper {
+  display: flex;
+  margin-bottom: 55px;
+}
+
+.btn:not(:last-child) {
+  margin-right: 50px;
+}
+
+.btn,
+.btn:link,
+.btn:visited {
+  border: none;
+  border-radius: 9px;
+  padding: 10px 20px;
+  transition: all .4s;
+  outline: 0;
+  color: whitesmoke;
+  text-decoration: none;
+  backface-visibility: hidden;
+;
+}
+.btn:hover {
+  transform: translateY(3px);
+}
+.btn:active {
+  transform: translateY(3px) scale(.95);
+  box-shadow: 0 3px 15px rgba(0,0,0,.4);
+}
+
+.game__start {
+  background-color: mediumseagreen;
+}
+.game__stop {
+  background-color: indianred;
+}
+.incresee_value {
+  text-align: center;
+}
