@@ -15,7 +15,9 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onAddToShoppingList() {
-    this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients)
+    const ingredientsCopy = JSON.parse(JSON.stringify(this.recipe.ingredients));
+    console.log(ingredientsCopy);
+    this.recipeService.addIngredientsToShoppingList(ingredientsCopy);
   }
 
 }
