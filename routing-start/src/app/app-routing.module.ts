@@ -9,6 +9,8 @@ import {ServerComponent} from "./servers/server/server.component";
 import {EditServerComponent} from "./servers/edit-server/edit-server.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {AuthGuard} from "./auth-guard.service";
+import {CanDeactivateGuard} from "./servers/edit-server/can-deactivate-guard.service";
+import {ServerResolver} from "./servers/server-resolver.service";
 
 const appRoutes: Routes = [
   {
@@ -35,19 +37,25 @@ const appRoutes: Routes = [
       {
         path: ':id',
         component: ServerComponent,
+        resolve: {server: ServerResolver}
       },
       {
         path: ':id/edit',
         component: EditServerComponent,
+        canDeactivate: [CanDeactivateGuard]
       }
     ]
   },
-  {path: '404', component: PageNotFoundComponent},
+  // {path: '404', component: PageNotFoundComponent},
+  {path: '404', component: PageNotFoundComponent,
+    data: {message: 'oz is not Found:)'}
+    },
   {path: '**', redirectTo: '/404'},
 ];
 
 @NgModule({
   imports: [
+    // RouterModule.forRoot(appRoutes, {useHash: true}) for Older Server that can not parse url.
     RouterModule.forRoot(appRoutes)
   ],
   exports: [RouterModule]
