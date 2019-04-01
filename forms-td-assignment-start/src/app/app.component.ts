@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {User} from "../../../forms-td-start/src/shared/user.interface";
+import {User} from "../shared/user.interface";
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,9 @@ import {User} from "../../../forms-td-start/src/shared/user.interface";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  valid: boolean = false
+  typeUserArray:string[] = ['Basic', 'Advanced', 'Pro'];
+  selectedTypeUser:string = this.typeUserArray[1];
+  valid: boolean = false;
   users: User[] = [];
   user: User = {
     email: '',
@@ -23,7 +25,7 @@ export class AppComponent {
   onSubmit(form: NgForm) {
     this.valid = true;
     this.user.email = form.value.email;
-    this.user.userType = form.value.type;
+    this.user.userType = form.value.typeUser;
     this.user.password = form.value.password;
     this.users.push(this.user);
     this.user = {
@@ -33,5 +35,6 @@ export class AppComponent {
     };
     console.log(this.users);
     form.reset()
+    form.form.patchValue({typeUser: this.selectedTypeUser});
   }
 }
