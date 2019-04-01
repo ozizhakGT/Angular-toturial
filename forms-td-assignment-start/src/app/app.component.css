@@ -1,0 +1,9 @@
+input.ng-invalid.ng-touched {
+  border: 1px #FF626C solid;
+}
+.form-validation {
+  background: #FF626C;
+  padding: 6px;
+  border-radius: 5px;
+  color: white;
+}

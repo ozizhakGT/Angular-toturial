@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!-- Add a Form with the following Inputs (and Validators)
+           1) Mail address (should not be empty and should be an email address)
+           2) A Dropdown which allows the user to select from three different Subscriptions ("Basic", "Advanced", "Pro")
+              Set "Advanced" as Default
+           3) A Password field (should not be empty)
+           4) A Submit Button
+
+           Display a warning message if the Form is invalid AND was touched. Display a warning message below each input if it's invalid.
+
+           Upon submitting the form, you should simply print the Value of the Form to the Console.
+           Optionally, display it in your template.
+      -->
+      <h1>Form Assinmnt</h1>
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div class="form-group">
+          <label>Email</label>
+          <input
+            type="email"
+            class="form-control"
+            email
+            ngModel
+            #email="ngModel"
+            name="email"
+            required>
+        </div>
+        <span class="help-block form-validation" *ngIf="!email.valid && email.touched">Please Enter a Valid Email</span>
+        <div class="form-group">
+          <label>User Type</label>
+          <select
+            class="form-control"
+            [ngModel]="advanced.value"
+            name="type">
+            <option value="Basic">Basic</option>
+            <option #advanced value="Advanced">Advanced</option>
+            <option value="Pro">Pro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            ngModel
+            required
+            minlength="6"
+            #password="ngModel">
+        </div>
+        <span class="help-block form-validation" *ngIf="!password.valid && password.touched">Please Enter a Valid Password</span>
+        <button class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+      </form>
+    </div>
+  </div>
+  <hr>
+  <div class="row" *ngIf="valid">
+    <div *ngFor="let user of users; let i = index" class="list-group col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <p class="list-group-item"><strong>Email:</strong> {{user.email}}</p>
+      <p class="list-group-item"><strong>User Type:</strong> {{user.userType}}</p>
+      <p class="list-group-item"><strong>Password:</strong> {{user.password}}</p>
+      <button class="btn btn-danger"(click)="onDelete(i)">Delete User</button>
+    </div>
+  </div>
+  <div class="row" *ngIf="!valid">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <h1>No user Logged</h1>
+    </div>
+  </div>
+</div>
