@@ -1,3 +1,12 @@
 .btn:not(:last-child) {
   margin-right: 4px;
 }
+.handler {
+  background: #f7a2a2;
+  border-radius: 7px;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+.handler span {
+  color: white;
+}

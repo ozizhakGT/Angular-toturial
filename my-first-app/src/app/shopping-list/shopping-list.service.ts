@@ -7,11 +7,16 @@ import {Subject} from "rxjs/Subject";
 })
 export class ShoppingListService {
   ingredientsHasChange = new Subject<Ingredients[]>();
+  startEditingMode = new Subject<number>();
   private ingredients: Ingredients[] = [];
 
 
   getIngredients() {
     return this.ingredients.slice();
+  }
+
+  getIngredient(id: number) {
+    return this.ingredients[id];
   }
 
   addIngredient(ingredient: Ingredients, publishChanges: boolean = true) {
@@ -28,6 +33,16 @@ export class ShoppingListService {
 
   addIngredients(ingredients: Ingredients[]) {
     ingredients.forEach(ing => this.addIngredient(ing, false));
+    this.ingredientsHasChange.next(this.ingredients.slice());
+  }
+
+  updateIngredient(id: number, newIngredient: Ingredients) {
+    this.ingredients[id] = newIngredient;
+    this.ingredientsHasChange.next(this.ingredients.slice());
+  }
+
+  deleteIngredient(id: number) {
+    this.ingredients.splice(id, 1);
     this.ingredientsHasChange.next(this.ingredients.slice());
   }
 
