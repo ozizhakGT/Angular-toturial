@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {RecipeService} from "../recipe.service";
 import {Recipe} from "../recipe.model";
@@ -11,11 +11,15 @@ import {Recipe} from "../recipe.model";
 })
 export class RecipeEditComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService) { }
-    editMode: boolean = false;
-    id: number;
-    modeText:string;
-    recipeForm: FormGroup;
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private recipeService: RecipeService) {
+  }
+
+  editMode: boolean = false;
+  id: number;
+  modeText: string;
+  recipeForm: FormGroup;
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -64,26 +68,28 @@ export class RecipeEditComponent implements OnInit {
     })
   }
 
+  toCancel() {
+    this.router.navigate(['../'], {relativeTo: this.route});
+  }
+
   onAddRecipe() {
-    // const newRecipe = new Recipe(
-    //   this.recipeForm.value['name'],
-    //   this.recipeForm.value['description'],
-    //   this.recipeForm.value['instruction'],
-    //   this.recipeForm.value['imagePath'],
-    //   this.recipeForm.value['ingredients']
-    //   );
-    if(this.editMode) {
-        this.recipeService.updateRecipe(this.id, this.recipeForm.value)
-      } else {
-        this.recipeService.addRecipe(this.recipeForm.value);
+    if (this.editMode) {
+      this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+    } else {
+      this.recipeService.addRecipe(this.recipeForm.value);
     }
-    }
+    this.toCancel();
+  }
+
+  onDeleteIngredient(index: number) {
+    (<FormArray>this.recipeForm.get('ingredients')).removeAt(index)
+  }
 
   AddIngredient() {
     (<FormArray>this.recipeForm.get('ingredients')).push(
       new FormGroup({
         'name': new FormControl(null, Validators.required),
-        'amount': new FormControl(null,[Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
+        'amount': new FormControl(null, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
       })
     )
   }
