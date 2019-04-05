@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Recipe} from "../recipe.model";
 import {RecipeService} from "../recipe.service";
-import {ActivatedRoute, Params, Router} from "@angular/router";
-import {Subscription} from "rxjs/Subscription";
+import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
   selector: 'app-recipe-detail',
@@ -12,8 +11,7 @@ import {Subscription} from "rxjs/Subscription";
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   id: number;
-
-  constructor(private recipeService: RecipeService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private recipeService: RecipeService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params
@@ -25,20 +23,9 @@ export class RecipeDetailComponent implements OnInit {
       )
   }
 
-  onDeleteRecipe() {
-    if (this.onConfirmMessege()) {
-      this.recipeService.deleteRecipe(this.id);
-      this.router.navigate(['../'], {relativeTo: this.route})
-    }
-  }
-
   onAddToShoppingList() {
     const ingredientsCopy = JSON.parse(JSON.stringify(this.recipe.ingredients));
     this.recipeService.addIngredientsToShoppingList(ingredientsCopy);
-  }
-
-  onConfirmMessege() {
-    return confirm(`Do you Sure You want delete ${this.recipe.name} Recipe ?`);
   }
 
 }

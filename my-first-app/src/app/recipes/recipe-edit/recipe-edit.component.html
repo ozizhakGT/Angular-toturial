@@ -7,7 +7,7 @@
             type="submit"
             [ngClass]="['btn', editMode ? 'btn-warning' : 'btn-success', 'marginRight']"
             [disabled]="!recipeForm.valid">{{editMode ? "Update" : "Save"}}</button>
-          <button type="button" class="btn btn-danger" (click)="toCancel()">Cancel</button>
+          <button type="button" class="btn btn-danger">Cancel</button>
         </div>
       </div>
       <div class="row">
@@ -84,7 +84,7 @@
               placeholder="Amount"
               formControlName="amount">
           </div>
-          <button id="delete" type="button" (click)="onDeleteIngredient(i)" class="btn btn-danger">X</button>
+          <button id="delete" type="button" class="btn btn-danger">X</button>
         </div>
       </div>
       <hr>

@@ -67,15 +67,11 @@ export class RecipeService {
 
   updateRecipe(id: number, newRecipe: Recipe) {
     this.recipes[id] = newRecipe;
-    this.recipeHasChanged.next(this.recipes.slice());
-  }
-
-  deleteRecipe(id: number) {
-    this.recipes.splice(id, 1);
-    this.recipeHasChanged.next(this.recipes.slice());
+    this.recipeHasChanged.next(this.recipes.slice())
   }
 
   addIngredientsToShoppingList(ingredients: Ingredients[]) {
-    this.shoppingListService.addIngredients(ingredients);
+
+    this.shoppingListService.addIngredients(ingredients)
   }
 }
